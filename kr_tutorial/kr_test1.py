@@ -15,7 +15,7 @@ from keras.optimizers import SGD
 #numpy for dataset layout
 import numpy as np
 
-#generate random data for testing
+#generate random data for testing (replace with actual data in future)
 #training
 #samples (1000), features(20), classes(10)
 x_train=np.random.random((1000,20)) #1000 rows(samples), 20 columns (features)
@@ -57,7 +57,23 @@ sgd=SGD(lr=0.01, momentum=0.9, nesterov=True)
 #Use accuracy as measurement as output
 model.compile(loss="categorical_crossentropy", optimizer=sgd, metrics=['accuracy'])
 
+#train the NN
+#epochs: number of times to iterate through whole dataset
+#batch_size: size of subset of dataset to pass into NN at a time
+print("Begin Training Model...")
+model.fit(x_train,y_train,
+          epochs=20,
+          verbose=1,
+          batch_size=128)
 
+#evaluate our NN
+print("Begin Evaluation...")
+
+score= model.evaluate(x_test, y_test, batch_size=128)
+
+#print results
+print("Test Score: ", score[0])
+print("Test Accuracy: ", score[1])
 
 
 
